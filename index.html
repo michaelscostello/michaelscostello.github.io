@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Michael S. Costello</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@300&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg:     #ffffff;
+      --ink:    #1a1714;
+      --mid:    #7a736b;
+      --faint:  #cec8c0;
+      --accent: #5c4a3a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-size: 17px;
+      line-height: 1.75;
+    }
+
+    .wrap {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--faint);
+    }
+
+    nav .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1.1rem;
+      padding-bottom: 1.1rem;
+    }
+
+    .nav-name {
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      font-size: .7rem;
+      letter-spacing: .08em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      font-size: .63rem;
+      letter-spacing: .1em;
+      color: var(--mid);
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 4rem 0;
+      border-top: 1px solid var(--faint);
+    }
+
+    #hero { padding-top: 8rem; padding-bottom: 5rem; border-top: none; }
+
+    /* ── HERO LAYOUT ── */
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .hero-photo {
+      width: 100%;
+      display: block;
+      filter: grayscale(100%);
+      transition: filter .4s ease;
+    }
+
+    .hero-photo:hover {
+      filter: grayscale(0%);
+    }
+
+    .hero-text {
+      padding-top: .5rem;
+    }
+
+    .hero-about {
+      margin-top: 1.4rem;
+      font-size: .98rem;
+      color: var(--accent);
+      margin-bottom: 0;
+    }
+
+    /* ── HERO ── */
+    .hero-mono {
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      font-size: .68rem;
+      letter-spacing: .12em;
+      color: var(--mid);
+      margin-bottom: 1.8rem;
+      opacity: 0;
+      animation: up .6s .1s forwards;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 3.6rem);
+      font-weight: 300;
+      line-height: 1.15;
+      letter-spacing: -.02em;
+      color: var(--ink);
+      white-space: nowrap;
+      opacity: 0;
+      animation: up .7s .25s forwards;
+    }
+
+    .hero-desc {
+      margin-top: 1.8rem;
+      font-size: 1rem;
+      color: var(--mid);
+      max-width: 480px;
+      opacity: 0;
+      animation: up .7s .45s forwards;
+    }
+
+    .hero-scroll {
+      margin-top: 3.5rem;
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      font-size: .6rem;
+      letter-spacing: .14em;
+      color: var(--faint);
+      opacity: 0;
+      animation: up .6s .7s forwards;
+    }
+
+    /* ── LABELS ── */
+    .label {
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      font-size: .63rem;
+      letter-spacing: .14em;
+      color: var(--mid);
+      margin-bottom: 2.2rem;
+    }
+
+    /* ── HEADINGS ── */
+    h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 300;
+      letter-spacing: -.01em;
+      line-height: 1.2;
+      color: var(--ink);
+      margin-bottom: 1.6rem;
+    }
+
+    h2 em { font-style: italic; }
+
+    h3 {
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      font-size: .68rem;
+      letter-spacing: .1em;
+      color: var(--mid);
+      margin-bottom: .5rem;
+    }
+
+    /* ── BODY TEXT ── */
+    p {
+      font-size: .98rem;
+      color: var(--accent);
+      margin-bottom: 1.1rem;
+    }
+
+    p:last-child { margin-bottom: 0; }
+
+    /* ── ABOUT ── */
+    .training { margin-top: 2rem; }
+
+    .training-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .2rem 2rem;
+      padding: 1.1rem 0;
+      border-top: 1px solid var(--faint);
+    }
+
+    .training-row:last-child { border-bottom: 1px solid var(--faint); }
+
+    .tr-deg  { font-size: .88rem; font-weight: 400; color: var(--ink); }
+    .tr-info { font-size: .85rem; color: var(--mid); }
+
+    /* ── RESEARCH ITEM ── */
+    .research-item {
+      padding: 2rem 0;
+      border-top: 1px solid var(--faint);
+    }
+
+    .research-item:last-child { border-bottom: 1px solid var(--faint); }
+
+    .ri-year {
+      font-family: 'DM Mono', monospace;
+      font-size: .6rem;
+      letter-spacing: .1em;
+      color: var(--faint);
+      margin-bottom: .5rem;
+    }
+
+    .ri-title {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--ink);
+      letter-spacing: -.01em;
+      margin-bottom: 1rem;
+    }
+
+    /* Stacked: image on top, text below */
+    .ri-content {
+      display: block;
+      overflow: hidden;
+    }
+
+    .ri-body {
+      font-size: .93rem;
+      color: var(--mid);
+      margin-bottom: 0;
+    }
+
+    /* ── MEDIA ── */
+    .ri-media {
+      float: left;
+      width: 50%;
+      margin-right: 2rem;
+      margin-bottom: .5rem;
+    }
+
+    .ri-media img {
+      width: 100%;
+      display: block;
+      border: 1px solid var(--faint);
+    }
+
+    .ri-media-caption {
+      margin-top: .5rem;
+      font-family: 'DM Mono', monospace;
+      font-size: .55rem;
+      letter-spacing: .04em;
+      color: var(--faint);
+      line-height: 1.5;
+    }
+
+    .ri-video-link {
+      display: block;
+      text-decoration: none;
+    }
+
+    .ri-video-link img {
+      width: 100%;
+      display: block;
+      border: 1px solid var(--faint);
+      transition: opacity .2s;
+    }
+
+    .ri-video-link:hover img { opacity: .85; }
+
+    /* YouTube embed */
+    .ri-video {
+      width: 100%;
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+    }
+
+    .ri-video iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: 1px solid var(--faint);
+    }
+
+    /* Links row beneath each item */
+    .ri-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .6rem 1.4rem;
+      margin-top: 1.2rem;
+      clear: both;
+    }
+
+    .ri-links-column {
+      flex-direction: column;
+      gap: .5rem;
+    }
+
+    .ri-link {
+      font-family: 'DM Mono', monospace;
+      font-size: .6rem;
+      letter-spacing: .1em;
+      color: var(--accent);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .ri-link:hover { color: var(--ink); }
+
+    /* ── REPOSITORIES ── */
+    .repo-list {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .repo-item {
+      display: flex;
+      align-items: center;
+      padding: 1.1rem 0;
+      border-top: 1px solid var(--faint);
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .repo-item:last-child { border-bottom: 1px solid var(--faint); }
+
+    .repo-name {
+      font-family: 'DM Mono', monospace;
+      font-size: .7rem;
+      letter-spacing: .1em;
+      color: var(--accent);
+    }
+
+    .repo-item:hover .repo-name { color: var(--ink); }
+
+    /* ── PUBLICATIONS ── */
+    .pub-item {
+      padding: 2rem 0;
+      border-top: 1px solid var(--faint);
+    }
+
+    .pub-item:last-child { border-bottom: 1px solid var(--faint); }
+
+    .pub-n {
+      font-family: 'DM Mono', monospace;
+      font-size: .58rem;
+      color: var(--faint);
+      letter-spacing: .1em;
+      margin-bottom: .5rem;
+    }
+
+    .pub-title {
+      font-size: .98rem;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--ink);
+      margin-bottom: .5rem;
+    }
+
+    .pub-authors {
+      font-size: .82rem;
+      color: var(--mid);
+      margin-bottom: .3rem;
+      font-weight: 300;
+    }
+
+    .pub-authors strong { color: var(--ink); font-weight: 500; }
+
+    .pub-journal {
+      font-size: .8rem;
+      color: var(--faint);
+      margin-bottom: 0;
+    }
+
+    .pub-note {
+      margin-top: .35rem;
+      font-size: .78rem;
+      font-style: italic;
+      color: var(--faint);
+    }
+
+    .pub-doi {
+      display: inline-block;
+      margin-top: .6rem;
+      font-family: 'DM Mono', monospace;
+      font-size: .58rem;
+      letter-spacing: .08em;
+      color: var(--mid);
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .pub-doi:hover { color: var(--ink); }
+
+    .scholar-line {
+      margin-top: 2.5rem;
+      margin-bottom: 0;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .scholar-line p { font-size: .85rem; color: var(--mid); margin: 0; }
+
+    .scholar-line a {
+      font-family: 'DM Mono', monospace;
+      font-size: .6rem;
+      letter-spacing: .1em;
+      color: var(--accent);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .scholar-line a:hover { color: var(--ink); }
+
+    /* ── CONTACT ── */
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      text-decoration: none;
+      color: var(--ink);
+      font-size: .95rem;
+      transition: color .2s;
+    }
+
+    .contact-link:hover { color: var(--accent); }
+
+    .cl-label {
+      font-family: 'DM Mono', monospace;
+      font-size: .58rem;
+      letter-spacing: .1em;
+      color: var(--faint);
+      width: 5rem;
+      flex-shrink: 0;
+    }
+
+    /* ── FOOTER ── */
+    footer { padding: 3rem 0; border-top: 1px solid var(--faint); }
+
+    footer .wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer p {
+      font-family: 'DM Mono', monospace;
+      font-size: .58rem;
+      letter-spacing: .1em;
+      color: var(--faint);
+      margin: 0;
+    }
+
+    /* ── REVEAL ── */
+    .reveal {
+      opacity: 1;
+      transform: none;
+    }
+
+    @keyframes up {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 680px) {
+      .hero-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .nav-links { display: none; }
+      .training-row { grid-template-columns: 1fr; }
+      h1 { white-space: normal; }
+      footer .wrap { flex-direction: column; gap: .8rem; }
+    }
+
+    /* ── HERO CONTACT ── */
+    .hero-contact {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: .7rem;
+    }
+
+    .hero-contact-link {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      text-decoration: none;
+      color: var(--ink);
+      font-size: .88rem;
+      transition: color .2s;
+    }
+
+    .hero-contact-link:hover { color: var(--accent); }
+
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="wrap">
+      <a href="#hero" class="nav-name">msc</a>
+      <ul class="nav-links">
+        <li><a href="#hero">about</a></li>
+        <li><a href="#research">research</a></li>
+        <li><a href="#publications">publications</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO / ABOUT -->
+  <section id="hero">
+    <div class="wrap">
+      <div class="hero-layout">
+        <img class="hero-photo" src="https://img1.wsimg.com/isteam/ip/83398db6-5a47-4b5d-8991-be7c019e4f9c/Michael4.jpg/:/cr=t:0%25,l:7.01%25,w:85.98%25,h:100%25" alt="Michael S. Costello" />
+        <div class="hero-text">
+          <p class="hero-mono">phd candidate &nbsp;·&nbsp; uc santa barbara</p>
+          <h1>Michael S. Costello</h1>
+          <p class="hero-desc">Molecular microbiologist. I tinker with bacterial toxin systems, molecular machines, and the ways cells interpret insults.</p>
+          <p class="hero-about">I'm a 6th year PhD student at the University of California – Santa Barbara. I spend a lot of time in lab tinkering, lately on bacterial toxin systems.</p>
+          <div class="training">
+            <h3>training</h3>
+            <div class="training-row">
+              <span class="tr-deg">PhD &nbsp;·&nbsp; UC Santa Barbara</span>
+              <span class="tr-info">Advisors: Christopher Hayes &amp; Diego Acosta-Alvear</span>
+            </div>
+            <div class="training-row">
+              <span class="tr-deg">BS &nbsp;·&nbsp; University of Central Florida</span>
+              <span class="tr-info">Advisor: Sean Moore</span>
+            </div>
+          </div>
+          <div class="hero-contact">
+            <a class="hero-contact-link" href="mailto:michaelcostello@ucsb.edu">
+              <span class="cl-label">email</span>michaelcostello@ucsb.edu
+            </a>
+            <a class="hero-contact-link" href="https://scholar.google.com/citations?user=michaelscostello" target="_blank">
+              <span class="cl-label">scholar</span>Google Scholar profile
+            </a>
+            <a class="hero-contact-link" href="CV_MichaelCostello.pdf" target="_blank">
+              <span class="cl-label">cv</span>Curriculum Vitae (PDF)
+            </a>
+          </div>
+          <p class="hero-scroll">↓ &nbsp; scroll</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEARCH -->
+  <section id="research">
+    <div class="wrap">
+      <p class="label reveal">research</p>
+      <h2 class="reveal">Molecular <em>machines.</em></h2>
+      <p class="reveal">I grew up taking things apart and putting them back together — electronics, dirt bike motors, whatever. I think this is why I've gravitated towards molecular machines. I've examined the systems that both bacteria and metazoans use to interpret insults, factors that enforce fidelity of protein synthesis machinery, and the exquisite machines bacteria use to translocate toxic cargos across target cell membranes. Below are some highlights.</p>
+
+      <!-- 5. CDI / Bordetella -->
+      <div class="research-item reveal">
+        <p class="ri-year">2022 – present · UCSB</p>
+        <p class="ri-title">Contact Dependent Inhibition Systems Are Capable of Inter-Kingdom Targeting</p>
+        <div class="ri-content">
+          <div class="ri-media">
+            <img src="https://img1.wsimg.com/isteam/ip/83398db6-5a47-4b5d-8991-be7c019e4f9c/science.aef8296-f2.png/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:600,cg:true/qt=q:79" alt="Bordetella CDI schematic — Science 2026" loading="lazy" />
+            
+          </div>
+          <p class="ri-body">After the pandemic, Chris, David, and Diego got a grant to study a non-canonical Contact-Dependent Inhibition (CDI) system and felt I would be suited to get the project off the ground. CDI systems are found in most Gram-negative bacteria and allow bacteria to compete for resources in their niche. Briefly, Zach Ruhe found that these systems undergo secretion arrest, with their receptor-binding domain distal to the inhibitor cell surface and toxic C-terminus retained in the periplasm. Upon receptor recognition, secretion resumes and the C-terminus is translocated into the target bacterium. Target bacterium intoxication results in a competitive advantage for the inhibitor cell. In my work, I've found that the FhaB adhesin system from the respiratory pathogen <em>Bordetella</em> functions much like a CDI system. However, instead of translocating a toxin across bacterial membranes, FhaB deploys a microtubule-binding domain across mammalian cell membranes. This molecular grappling hook allows <em>Bordetella</em> to engage with peripheral microtubules in ciliated cells and move to the cilium base. Typically, microbes are ensnared by mucus and escorted out of the airway via rapid and concerted beating of cilia coupled to a good cough. We think FhaB-mediated occupation of this basal niche affords <em>Bordetella</em> a safe-haven, shielding microbes from the immense shear force imparted by the mucociliary escalator. This was an all-time project. I probably peaked too early, but whatever. Before you or I forget all about this, please read the wonderfully-written perspective tagged under the photo — words by Françoise Jacob-Dubuisson and Camille Locht, illustrations by Austin Fisher! Also, Andrea Du Toit's highlight is great too!</p>
+        </div>
+        <div class="ri-links">
+          <a class="ri-link" href="https://doi.org/10.1126/science.adz2737" target="_blank">Science 2026 ↗</a>
+          <a class="ri-link" href="https://www.science.org/doi/10.1126/science.aef8296" target="_blank">Science Perspective ↗</a>
+          <a class="ri-link" href="https://www.nature.com/articles/s41579-026-01297-9" target="_blank">Nature Microbiology Highlight ↗</a>
+        </div>
+      </div>
+
+      <!-- 4. COVID / PEARLS -->
+      <div class="research-item reveal">
+        <p class="ri-year">2020 · UCSB</p>
+        <p class="ri-title">You Don't Need a Fancy Qiagen Kit to Test for Viral Infection</p>
+        <div class="ri-content">
+          <div class="ri-media">
+            <img src="https://img1.wsimg.com/isteam/ip/83398db6-5a47-4b5d-8991-be7c019e4f9c/jcm.02403-20-f0001-2.jpg/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:600,cg:true/qt=q:79" alt="JCM RNA extraction figure" loading="lazy" />
+          </div>
+          <p class="ri-body">So the backstory here is that Carlos, Diego, and I were stuck at home during the COVID going insane. We figured we might do something useful and fashioned a cheap, non-toxic, and easy-to-use reagent to extract RNA from nasal turbinates for viral testing. The idea is that communities with fewer resources might not have the means to afford commercial testing regimes. If you have molecular sympathy, you don't have to spend $5 to reliably extract RNA from a patient sample — you can actually do it for ~$0.18 without sacrificing detection sensitivity. This project was fun. I got to do a ton of things like 3D print nasal swabs (sketchy) and hand-powered centrifuges (more sketchy). Check out supplemental fig 5A for a pic of Olivia ripping my 3D printed hand-fuge.</p>
+        </div>
+        <div class="ri-links">
+          <a class="ri-link" href="https://doi.org/10.1128/JCM.02403-20" target="_blank">J Clin Microbiol 2021 ↗</a>
+        </div>
+      </div>
+
+      <!-- 3. METTL5 / ISR -->
+      <div class="research-item reveal">
+        <p class="ri-year">2019 – 2022 · UCSB</p>
+        <p class="ri-title">A RNA Methyltransferase Tunes the Integrated Stress Response</p>
+        <div class="ri-content">
+          <div class="ri-media">
+            <img src="https://img1.wsimg.com/isteam/ip/83398db6-5a47-4b5d-8991-be7c019e4f9c/Screen%20Shot%202023-01-04%20at%207.04.03%20PM.png/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:600,cg:true/qt=q:79" alt="METTL5 dose response curves" loading="lazy" />
+          </div>
+          <p class="ri-body">I joined Diego's lab at UCSB in 2019 thinking about translation reprogramming during the integrated stress response (ISR). We had just started experiments looking at ribosome heterogeneity during the ISR when I met our departmental colloquium keynote speaker, Dr. Yang Shi. Turns out his post-doc, Hao Chen, had just discovered a ribosomal methylation that enhanced translation efficiency of ISR targets. After some discussion, Dr. Shi invited me to his lab for a sabbatical in the Spring of 2020. I was thrilled. I moved to Jamaica Plain and hit the ground running... for about 3 weeks. The children's hospital closed non-essential research and I flew back to CA. A month later, Eric Green's group published an article in Science Advances on the methyltransferase and its role in stress resistance. Check out the Green lab's paper below.</p>
+        </div>
+        <div class="ri-links">
+          <a class="ri-link" href="https://www.science.org/doi/10.1126/sciadv.aaz4370" target="_blank">Science Advances 2020 ↗</a>
+        </div>
+      </div>
+
+      <!-- 2. RPL9 -->
+      <div class="research-item reveal">
+        <p class="ri-year">post-graduation · UCF</p>
+        <p class="ri-title">RPL9 Alters Inter-Ribosomal Spacing During Ribosome Collisions</p>
+        <div class="ri-content">
+          <div class="ri-media">
+            <img src="https://img1.wsimg.com/isteam/ip/83398db6-5a47-4b5d-8991-be7c019e4f9c/pnas.1910613116fig05.jpeg/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:600,cg:true/qt=q:79" alt="PNAS figure — ribosome spacing mass spec data" loading="lazy" />
+          </div>
+          <p class="ri-body">After I graduated, Sean offered me a technician position to focus on ribosomal protein L9. RPL9 was known as a translation fidelity factor for many years, but we didn't know how it worked. There were some biochemical and structural studies demonstrating L9 on leading ribosomes interacting with trailing ribosomes, so Sean hypothesized that L9 may influence ribosome spacing. I designed a construct to stall and collide ribosomes and asked whether peptide length of the trailing ribosome changed as a function of L9 occupancy. It turns out that ribosomes lacking L9 pack closer to one another. Sean and Angela hypothesized that this dense packing prevented E-site tRNA egress. And it does. So L9 enhances translation fidelity by preventing dense packing in ribosome traffic jams. Such a great story — check out the paper below.</p>
+        </div>
+        <div class="ri-links">
+          <a class="ri-link" href="https://doi.org/10.1073/pnas.1906591116" target="_blank">PNAS 2019 ↗</a>
+        </div>
+      </div>
+
+      <!-- 1. Foray into Research -->
+      <div class="research-item reveal">
+        <p class="ri-year">undergraduate · UCF</p>
+        <p class="ri-title">Foray into Research</p>
+        <div class="ri-content">
+          <div class="ri-media">
+            <a class="ri-video-link" href="https://www.youtube.com/watch?v=q-pUWnh7cfU" target="_blank">
+              <img src="https://img.youtube.com/vi/q-pUWnh7cfU/hqdefault.jpg" alt="The Vape Chamber 2000 — watch on YouTube" loading="lazy" />
+              <p class="ri-media-caption">▶ The Vape Chamber 2000 — watch on YouTube</p>
+            </a>
+          </div>
+          <p class="ri-body">During my undergraduate study at UCF, I cold-called Sean and asked whether he would help me test a wacky hypothesis that propylene glycol (main vape constituent — known bactericidal) would prompt a gene expression change in nasopharyngeal bacteria. In hindsight, I was probably more fit for a dishwashing role. Either way, Sean agreed and that was a pretty lucky thing because I found the only person at UCF with experience in electrical engineering and bacterial physiology. So I developed an automated vape chamber and cultured bacteria in it to test whether gene expression changes as a function of vaping. It doesn't, but check out a cool video of the chamber.</p>
+        </div>
+        <div class="ri-links">
+          <a class="ri-link" href="https://stars.library.ucf.edu/honorstheses/106/" target="_blank">Honors Thesis ↗</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section id="publications">
+    <div class="wrap">
+      <p class="label reveal">publications</p>
+      <h2 class="reveal">Selected <em>works.</em></h2>
+
+      <div class="scholar-line reveal">
+        <p>Full publication list &amp; citation metrics</p>
+        <a href="https://scholar.google.com/citations?user=michaelscostello" target="_blank">Google Scholar ↗</a>
+      </div>
+
+      <div class="pub-item reveal">
+        <p class="pub-n">01</p>
+        <p class="pub-title">Bacteria deliver a microtubule-binding protein into mammalian cells to promote colonization</p>
+        <p class="pub-authors"><strong>Costello MS</strong>, Neumann B, Raimondi MW, Cuthbert BJ, Holubová J, Garza-Sánchez F, Samad A, Bumba L, Torres JA, Holznecht N, Mendoza J, Stanek O, Prombhul S, Weimbs T, Morrissey MA, Acosta-Alvear D, Low DA, Šebo P, Goulding CW, Gonen S, Hayes CS.</p>
+        <p class="pub-journal">Science. 2026 Feb 19;391(6787):825–830.</p>
+        <a class="pub-doi" href="https://doi.org/10.1126/science.adz2737" target="_blank">doi: 10.1126/science.adz2737</a>
+      </div>
+
+      <div class="pub-item reveal">
+        <p class="pub-n">02</p>
+        <p class="pub-title">A Fast and Accessible Method for the Isolation of RNA, DNA, and Protein To Facilitate the Detection of SARS-CoV-2</p>
+        <p class="pub-authors">Ponce-Rojas JC*, <strong>Costello MS*</strong>, Proctor DA, Kosik KS, Wilson MZ, Arias C, Acosta-Alvear D.</p>
+        <p class="pub-journal">J Clin Microbiol. 2021 Mar 19;59(4):e02403-20.</p>
+        <p class="pub-note">*Co-first authors — order determined by python coin toss script</p>
+        <a class="pub-doi" href="https://doi.org/10.1128/JCM.02403-20" target="_blank">doi: 10.1128/JCM.02403-20</a>
+      </div>
+
+      <div class="pub-item reveal">
+        <p class="pub-n">03</p>
+        <p class="pub-title">Ribosome collisions alter frameshifting at translational reprogramming motifs in bacterial mRNAs</p>
+        <p class="pub-authors">Smith AM, <strong>Costello MS</strong>, Kettring AH, Wingo RJ, Moore SD.</p>
+        <p class="pub-journal">Proc Natl Acad Sci U S A. 2019 Oct 22;116(43):21769–21779.</p>
+        <a class="pub-doi" href="https://doi.org/10.1073/pnas.1906591116" target="_blank">doi: 10.1073/pnas.1906591116</a>
+      </div>
+
+    </div>
+  </section>
+
+
+
+  <!-- REPOSITORIES -->
+  <section id="repositories">
+    <div class="wrap">
+      <p class="label reveal">repositories</p>
+      <h2 class="reveal">Projects within projects.</h2>
+      <p class="reveal">Some of the biological questions I've run into required some engineering to answer. Below are some links to these projects within projects.</p>
+
+      <div class="repo-list reveal">
+        <a class="repo-item" href="https://github.com/michaelscostello/3D-models" target="_blank">
+          <span class="repo-name">Lab Equipment 3D Models ↗</span>
+        </a>
+        <a class="repo-item" href="https://github.com/michaelscostello/Gradient_maker" target="_blank">
+          <span class="repo-name">DIY Gradient Maker ↗</span>
+        </a>
+        <a class="repo-item" href="https://github.com/michaelscostello/Image-analysis-scripts" target="_blank">
+          <span class="repo-name">Image Analysis Scripts ↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <p>© 2026 Michael S. Costello</p>
+      <p>Santa Barbara, CA</p>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/
