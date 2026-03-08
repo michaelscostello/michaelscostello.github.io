@@ -563,7 +563,7 @@
             <a class="hero-contact-link" href="mailto:michaelcostello@ucsb.edu">
               <span class="cl-label">email</span>michaelcostello@ucsb.edu
             </a>
-            <a class="hero-contact-link" href="https://scholar.google.com/citations?user=michaelscostello" target="_blank">
+            <a class="hero-contact-link" href="https://scholar.google.com/citations?user=BM6pB0IAAAAJ&hl=en" target="_blank">
               <span class="cl-label">scholar</span>Google Scholar profile
             </a>
             <a class="hero-contact-link" href="CV_MichaelCostello.pdf" target="_blank">
@@ -700,7 +700,7 @@
 
       <div class="scholar-line reveal">
         <p>Full publication list &amp; citation metrics</p>
-        <a href="https://scholar.google.com/citations?user=michaelscostello" target="_blank">Google Scholar ↗</a>
+        <a href="https://scholar.google.com/citations?user=BM6pB0IAAAAJ&hl=en" target="_blank">Google Scholar ↗</a>
       </div>
 
     </div>
@@ -731,4 +731,18 @@
 
   <footer>
     <div class="wrap">
-      <p>© 2
+      <p>Michael S. Costello &mdash; UC Santa Barbara</p>
+      <p><a href="mailto:michaelcostello@ucsb.edu">michaelcostello@ucsb.edu</a></p>
+    </div>
+  </footer>
+
+  <script>
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
